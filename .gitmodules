@@ -1,0 +1,6 @@
+[submodule "Tiny/vendor/spdlog"]
+	path = Tiny/vendor/spdlog
+	url = git@github.com:gabime/spdlog.git
+[submodule "Tiny/vendor/GLFW"]
+	path = Tiny/vendor/GLFW
+	url = git@github.com:TheCherno/glfw.git
