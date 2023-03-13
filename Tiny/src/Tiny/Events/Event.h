@@ -5,6 +5,8 @@
 #include <functional>
 #include <iostream>
 
+#include "Tiny/Core.h"
+
 namespace Tiny
 {
 
@@ -55,11 +57,11 @@ namespace Tiny
 		}
 
 		template <typename EventType,typename Func>
-		bool Dispatch(Func const& func)
+		bool Dispatch(Func const &func)
 		{
 			if (d_event.GetEventType() == EventType::GetStaticType())
 			{
-				d_event.b_Handled |= func(static_cast<T&>(d_event));
+				d_event.b_Handled |= func(static_cast<EventType&>(d_event));
 				return true;
 			}
 			return false;

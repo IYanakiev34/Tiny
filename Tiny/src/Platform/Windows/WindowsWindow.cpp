@@ -6,6 +6,8 @@
 #include "Tiny/Events/ApplicationEvent.h"
 #include "Tiny/Events/MouseEvent.h"
 #include "Tiny/Events/KeyEvent.h"
+
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace Tiny
@@ -29,20 +31,22 @@ namespace Tiny
 
 	WindowsWindow::~WindowsWindow()
 	{
-
+		Shutdown();
 	}
 
 	void WindowsWindow::Init(WindowProps const& props)
 	{
+		// Set window data
 		d_windowData.d_title = props.d_title;
 		d_windowData.d_width = props.d_width;
 		d_windowData.d_height = props.d_height;
 
 		TN_CORE_INFO("Creating window {0} ({1},{2})", props.d_title, props.d_width, props.d_height);
 
+
+		// Initialize glfw
 		if (!s_GLFWInitialized)
 		{
-			// TODO shutdown on system teminate
 			int success = glfwInit();
 			if (!success)
 			{
@@ -52,12 +56,22 @@ namespace Tiny
 			}
 		}
 
+
+		// Create window and set context
 		d_window = glfwCreateWindow(d_windowData.d_width, d_windowData.d_height, d_windowData.d_title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(d_window);
+
+		// Initialize GLAD
+		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+			TN_CORE_ERROR("Could not initialize GLAD");
+
+		// Set the user pointer of the window to be the window data
 		glfwSetWindowUserPointer(d_window, &d_windowData);
 		SetVSync(true);
 
 		// Set glfw callbacks
+
+		// Window Size callback
 		glfwSetWindowSizeCallback(d_window, [](GLFWwindow* window, int width, int height)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -68,6 +82,8 @@ namespace Tiny
 				data.d_eventCallback(event);
 		});
 
+
+		// Window close callback
 		glfwSetWindowCloseCallback(d_window, [](GLFWwindow* window) {
 			WindowData& data = *(WindowData *)glfwGetWindowUserPointer(window);
 			
@@ -75,6 +91,8 @@ namespace Tiny
 			data.d_eventCallback(event);
 		});
 
+
+		// Window key pressed callback
 		glfwSetKeyCallback(d_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 			switch (action)
@@ -100,6 +118,16 @@ namespace Tiny
 			}
 		});
 
+
+		// Window char callback
+		glfwSetCharCallback(d_window, [](GLFWwindow* window, unsigned int codepoint) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			KeyTypedEvent typedEvent(codepoint);
+			data.d_eventCallback(typedEvent);
+		});
+
+		// Window mouse button callback
 		glfwSetMouseButtonCallback(d_window, [](GLFWwindow* window, int button, int action, int mods) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
@@ -120,6 +148,7 @@ namespace Tiny
 			}
 		});
 
+		// Window mouse scroll callback
 		glfwSetScrollCallback(d_window, [](GLFWwindow* window, double xoffset, double yoffset) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
@@ -127,6 +156,8 @@ namespace Tiny
 			data.d_eventCallback(mouseScroll);
 		});
 
+
+		// Window mouse moved callback
 		glfwSetCursorPosCallback(d_window, [](GLFWwindow* window, double xpos, double ypos) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 

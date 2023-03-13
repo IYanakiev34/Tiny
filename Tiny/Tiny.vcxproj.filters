@@ -4,6 +4,9 @@
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
     </Filter>
@@ -13,8 +16,17 @@
     <Filter Include="Tiny\Events">
       <UniqueIdentifier>{6DA036DA-D955-AFCF-624A-A9A6CEFEA5D3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tiny\ImGui">
+      <UniqueIdentifier>{937CC8A9-7F34-0AF7-E83B-E352D412A5E7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLLoader.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
@@ -41,6 +53,15 @@
     <ClInclude Include="src\Tiny\Events\MouseEvent.h">
       <Filter>Tiny\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tiny\ImGui\ImGuiLayer.h">
+      <Filter>Tiny\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tiny\Layer.h">
+      <Filter>Tiny</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tiny\LayerStack.h">
+      <Filter>Tiny</Filter>
+    </ClInclude>
     <ClInclude Include="src\Tiny\Log.h">
       <Filter>Tiny</Filter>
     </ClInclude>
@@ -49,11 +70,23 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\TNpch.cpp" />
     <ClCompile Include="src\Tiny\Application.cpp">
+      <Filter>Tiny</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tiny\ImGui\ImGuiLayer.cpp">
+      <Filter>Tiny\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tiny\Layer.cpp">
+      <Filter>Tiny</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tiny\LayerStack.cpp">
       <Filter>Tiny</Filter>
     </ClCompile>
     <ClCompile Include="src\Tiny\Log.cpp">

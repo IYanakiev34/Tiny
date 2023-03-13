@@ -47,6 +47,9 @@ namespace Tiny
 			return ss.str();
 		}
 
+		inline float GetXOffset() const { return d_offsetX; }
+		inline float GetYOffset() const { return d_offsetY; }
+
 		EVENT_CLASS_TYPE(MouseScrolled)
 		EVENT_CLASS_CATEGORY(EInputC | EMouseC)
 	private:
