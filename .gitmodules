@@ -4,6 +4,3 @@
 [submodule "Tiny/vendor/GLFW"]
 	path = Tiny/vendor/GLFW
 	url = git@github.com:TheCherno/glfw.git
-[submodule "Tiny/vendor/ImGui"]
-	path = Tiny/vendor/ImGui
-	url = git@github.com:TheCherno/imgui.git
